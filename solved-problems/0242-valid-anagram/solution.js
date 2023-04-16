@@ -3,31 +3,42 @@
  * @param {string} t
  * @return {boolean}
  */
+
 var isAnagram = function(s, t) {
-    
-    if (s.length !== t.length) return false
 
-    const sCounts = {}
-    const tCounts = {}
-
-    for (let i = 0; i < s.length; i++){
-        const sLetter = s[i]
-        const tLetter = t[i]
-        
-        if (!sCounts[sLetter]) sCounts[sLetter] = 1
-        else sCounts[sLetter]++
-
-        if (!tCounts[tLetter]) tCounts[tLetter] = 1
-        else tCounts[tLetter]++
+    // account for strings being the same length
+    if (s.length !== t.length){
+        return false;
     }
 
-    for (const letter of Object.keys(sCounts)){
-        if (sCounts[letter] !== tCounts[letter]) return false
+    // initialize two objects to store count of letters in each string 
+    // so they can be compared for eqaul counts of each letter 
+    let sObj = {}
+    let tObj = {}
+
+    function createCountObj(arr, obj){
+        for (const char of arr){
+        // if char is already a key in object, increment its value, else intialize the key to a value of 
+            if (obj[char]){
+                obj[char]++;
+            } else {
+                obj[char] = 1
+            }
+        }
     }
 
-    for (const letter of Object.keys(tCounts)){
-        if (tCounts[letter] !== sCounts[letter]) return false
-    }
+    // create objects from s and t arrays
+    createCountObj(s, sObj);
+    createCountObj(t, tObj);
 
-    return true 
+
+
+    // loop over keys in s object, compare to keys in t object
+
+    for (const key in sObj){
+        if (sObj[key] !== tObj[key]){
+            return false
+        }
+    }
+    return true
 };
