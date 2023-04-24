@@ -45,14 +45,11 @@ var minSubArrayLen = function(target, nums) {
         }
     }
 
-         if (nums[0] > target){ 
-            return 1
-        }
 
     let i = 0;
-    let j = 1;
-    let minLen = nums.length;
-    let sum = nums[i] + nums[j]
+    let j = 0;
+    let minLen = Infinity;
+    let sum = nums[i]
     let maxSum = sum
 //      i   j
 // [2,3,1,2,4,3], 7 --> return 2
@@ -61,6 +58,7 @@ var minSubArrayLen = function(target, nums) {
 // 
 
     while (j < nums.length){
+        // when we reach or exceed taget sum, reassess if the subarray's length is less than previous minLen. Then we can shrink the subarry by removing the first number and move up the i pointer and keep checking the total sum
         if (sum >= target){
             minLen = Math.min(minLen, (j - i + 1));
             maxSum = Math.max(maxSum, sum)
