@@ -3,12 +3,14 @@
  * @return {Function} counter
  */
 var createCounter = function(n) {
-    // initialize counter only once in outer function
-    let count = n - 1;
+    // keep track of calls to inner function so that we do not increment n on the first call
+    let calls = 0;
     // inner function body is returned into global memory when outer is called. Maintains referecne to count variable
     return function() {
-        count = count + 1; // increment count during each invocation 
-        return count;
+        calls++;
+        if (calls === 1) return n;
+        n = n + 1; // increment count during each invocation 
+        return n;
     };
 };
 
