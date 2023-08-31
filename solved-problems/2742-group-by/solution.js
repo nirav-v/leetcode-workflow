@@ -1,17 +1,27 @@
 /**
  * @param {Function} fn
- * @return {Object}
+ * @return {Array}
  */
+
+
+// run fn on each item in this array
+// check if the key already exists in the object, if so push the current item onto the arr at that key
+// if key does not exist, create it with a value of [current item]
+
+
 Array.prototype.groupBy = function(fn) {
-    let result = {};
+    const grouped = {};
 
     for (let item of this){
-        let key = fn(item);
-        if (result[key]) result[key].push(item);
-        else result[key] = [item];
-    };
+        const key = fn(item);
+        if (key in grouped){
+            grouped[key].push(item)
+        } else {
+            grouped[key] = [item]
+        }
+    }
+    return grouped
 
-    return result;
 };
 
 /**
