@@ -1,34 +1,20 @@
 /**
  * @param {Function} fn
+ * @return {Function}
  */
-
-
-
 function memoize(fn) {
-    // create a cache to store result for each arugment
+    
     const cache = {};
+    
     return function(...args) {
-            // console.log(cache);
-        // check the cache, if input is not there, caculate and store result in cache, return result
-        if (cache[args] || cache[args] === 0) return cache[args];
-        
+        // either call fn or return the cahced value if it exists
+       
+        const cachedValue = cache[args];
+        if (cachedValue !== undefined) return cachedValue;
+        // call the function and store result in cache 
         let result = fn(...args);
         cache[args] = result;
-        return result;
-
-    
-
-        // if (args.length === 1){
-        //     const result = fn(args[0])
-        //     cache[args] = result;
-        //     return result;
-        // } else {
-        //     const result = fn(args[0], args[1])
-        //     cache[args] = result;
-        //     return result;
-        // }
-
-
+        return result 
     }
 }
 
