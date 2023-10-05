@@ -1,35 +1,26 @@
-type Counter = {
+type ReturnObj = {
     increment: () => number,
     decrement: () => number,
     reset: () => number,
 }
 
+function createCounter(init: number): ReturnObj {
+    let modified = init;
+	return {
+        increment: () => {
+            modified += 1;
+            return modified;
+        },
+        decrement: () => {
+            modified = modified - 1;
+            return modified;
+        },
+        reset: () => {
+            modified = init;
+            return modified;
+        },
 
-class CounterObj {
-    value: number
-    init: number
-    constructor(num: number){
-        this.init = num
-        this.value = num;
     }
-
-    increment(){
-        return this.value += 1;
-    }
-
-    decrement(){
-            return this.value -= 1;
-    }
-
-    reset(){
-        return this.value = this.init;
-    }
-    
-}
-
-
-function createCounter(init: number): Counter {
-    return new CounterObj(init);
 };
 
 /**
