@@ -1,9 +1,12 @@
 type Fn = (n: number, i: number) => any
 
 function filter(arr: number[], fn: Fn): number[] {
-    const result = [];
-    arr.forEach((item, index) => {
-        if (fn(item, index)) result.push(item);
-    })
-    return result
+	const result = [];
+
+    for (let i = 0; i < arr.length; i++){
+        if (Boolean(fn(arr[i], i))) result.push(arr[i]);
+    }
+
+    return result;
+
 };
