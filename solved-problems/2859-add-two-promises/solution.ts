@@ -1,10 +1,11 @@
 type P = Promise<number>
 
 async function addTwoPromises(promise1: P, promise2: P): P {
-    const num1 = await promise1
-    const num2 = await promise2
-
-    return new Promise((res, rej) => res(num1 + num2))
+    
+    const result = await Promise.all([promise1, promise2])    
+    
+    return new Promise((res, rej) => res(result[0] + result[1]));
+    
 };
 
 /**
