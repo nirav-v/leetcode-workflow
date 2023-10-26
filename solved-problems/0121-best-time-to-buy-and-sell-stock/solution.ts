@@ -1,24 +1,17 @@
 function maxProfit(prices: number[]): number {
-    
-    let max = 0
-    let l = 0
-    let r = 1
+    let maxProfit = 0;
 
- // [7,1,5,3,6,4]
-    while (r < prices.length){
-        if (prices[r] < prices[l]) {
-            l = r
-            r+=1
-            continue;
-        }
+    let i = 0;
+    let j = i + 1;
 
-        const currentProfit = prices[r] - prices[l]
+    while (j < prices.length){
+        if (prices[j] - prices[i] > maxProfit) maxProfit = prices[j] - prices[i];
 
-        max = Math.max(max, currentProfit)
+        if (prices[j] < prices[i]) i = j;
 
-        r++
+        j++;
     }
 
-    return max
-};
+    return maxProfit;
 
+};
