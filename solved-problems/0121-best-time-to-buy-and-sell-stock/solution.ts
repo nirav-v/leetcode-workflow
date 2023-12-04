@@ -1,17 +1,22 @@
+
+// [7,1,5,3,6,4]
+// greatest value of day 2 - day 1
 function maxProfit(prices: number[]): number {
-    let maxProfit = 0;
+    
+    let result = 0;
 
-    let i = 0;
-    let j = i + 1;
+    let minPrice = Infinity;
 
-    while (j < prices.length){
-        if (prices[j] - prices[i] > maxProfit) maxProfit = prices[j] - prices[i];
+    for (const price of prices){
+        if (price < minPrice){
+            minPrice = price
+        } else if (price - minPrice > result) {
+            result = price - minPrice
+        };
 
-        if (prices[j] < prices[i]) i = j;
-
-        j++;
     }
 
-    return maxProfit;
-
+    return result;
 };
+
+
