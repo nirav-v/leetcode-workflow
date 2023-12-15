@@ -1,32 +1,30 @@
 function characterReplacement(s: string, k: number): number {
-    let l = 0
-    const charCounts = {}
+    
+    // store the count of each char in a hash map
+    // if the count least frequent chars (length of substring - count of most frequent char) is more than k possbile changes, decrement that char count in the object and move the substring forward
+// calculate the max length
 
-    let longest = 0
+let res = 0;
+const counts = {}
+let i = 0;
 
-    for (let r = 0; r < s.length; r++) {
+for (let j = 0; j < s.length; j++){
 
-        if (charCounts[s[r]]) charCounts[s[r]] += 1
-        else charCounts[s[r]] = 1
+    if (counts[s[j]]) counts[s[j]] += 1;
+    else counts[s[j]] = 1;
 
-        let mostFrequent = getMostFrequent(charCounts)
+    
+    const charValues: number[] = Object.values(counts)
+    const mostFrequentCharCount = Math.max(...charValues)
 
-        while (((r - l + 1) - mostFrequent) > k) {
-            charCounts[s[l]] -= 1
-            l++
-            mostFrequent = getMostFrequent(charCounts)
-        }
 
-        longest = Math.max(longest, r - l + 1)
+    if ( (j - i + 1) - mostFrequentCharCount > k){
+        counts[s[i]]-=1
+        i++;
     }
 
-    return longest
+    res=Math.max(res,  j - i + 1)
+}   
+
+return res;
 };
-
-function getMostFrequent(charCounts) {
-    let mostFrequent = 0
-    for (const char of Object.keys(charCounts)) {
-        mostFrequent = Math.max(mostFrequent, charCounts[char])
-    }
-    return mostFrequent
-}
