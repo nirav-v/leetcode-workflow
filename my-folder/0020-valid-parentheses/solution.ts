@@ -1,24 +1,24 @@
 function isValid(s: string): boolean {
-// every time we encounter an opening character push it the top of a stack, store the desired closing character in a set
-// if a closing char in the set is encountered, pop from the stack remove char from set
-// else push the char to the set (closing char without an opener)
-'{{()))}}'
-    let chars = {
-        '}':'{',
-        ']':'[',
-        ')':'('
-    };
+    const stack = [];
 
-    let stack = []
- 
-    for (let char of s) {
-        if (chars[char]) {
-            if (stack[stack.length -1] !== chars[char]) return false;
-            stack.pop();
-        } else stack.push(char)
+    const brackets = {
+        "(": ")",
+        "{": "}",
+        "[": "]"
     }
 
+    const openingBrackets = new Set(Object.keys(brackets));
+
+
+    // push and pop from stack as we go
+    for (const char of s){
+        if (openingBrackets.has(char)){
+            stack.push(char);
+        } else {
+            const top = stack.pop();
+            if (brackets[top] !== char) return false;
+        }
+    }
     return stack.length === 0;
 
-// 
 };
