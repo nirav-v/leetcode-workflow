@@ -2,37 +2,34 @@ type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string
 type Fn = (...args: JSONValue[]) => void
 
 function cancellable(fn: Fn, args: JSONValue[], t: number): Function {
-	
-    const timeoutId = setTimeout(()=> fn(...args), t)
-
-    return function cancelFn(){
-        clearTimeout(timeoutId);
+    // schedule fn to fire in t ms
+    const timerId = setTimeout(() => fn(...args), t)
+    // return cancel fn that clears scheduled timeout when called
+    return function cancel(){
+        clearTimeout(timerId);
     }
-
 };
 
 /**
- *  const result = []
+ *  const result = [];
  *
- *  const fn = (x) => x * 5
- *  const args = [2], t = 20, cancelT = 50
+ *  const fn = (x) => x * 5;
+ *  const args = [2], t = 20, cancelTimeMs = 50;
  *
- *  const start = performance.now() 
+ *  const start = performance.now();
  *
  *  const log = (...argsArr) => {
  *      const diff = Math.floor(performance.now() - start);
- *      result.push({"time": diff, "returned": fn(...argsArr)})
+ *      result.push({"time": diff, "returned": fn(...argsArr)});
  *  }
  *       
  *  const cancel = cancellable(log, args, t);
  *
- *  const maxT = Math.max(t, cancelT)
+ *  const maxT = Math.max(t, cancelTimeMs);
  *           
- *  setTimeout(() => {
- *     cancel()
- *  }, cancelT)
+ *  setTimeout(cancel, cancelTimeMs);
  *
  *  setTimeout(() => {
- *     console.log(result) // [{"time":20,"returned":10}]
+ *      console.log(result); // [{"time":20,"returned":10}]
  *  }, maxT + 15)
  */
