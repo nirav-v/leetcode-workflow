@@ -2,12 +2,8 @@ type F = (x: number) => number;
 
 function compose(functions: F[]): F {
     
-	return function(x) {
-        
-        if (!functions.length) return x;
-
-        return functions.reduceRight((accumulator, currentValue) => currentValue(accumulator), x);
-
+    return function(x) {
+        return functions.reduceRight((accumulator, currentValue) => currentValue(accumulator), x)
     }
 };
 
