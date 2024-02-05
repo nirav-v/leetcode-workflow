@@ -14,33 +14,20 @@
 
 function invertTree(root: TreeNode | null): TreeNode | null {
 
-    if (!root) return root
+    function swapNodes(currentNode: TreeNode) {
 
-    // iterative BFS
-    // const q = [root];
+        if (!currentNode) return
 
-    // while (q.length){
-    //     const node = q.pop();
+        console.log(currentNode)
+        const temp = currentNode.left;
+        currentNode.left = currentNode.right;
+        currentNode.right = temp;
+        swapNodes(currentNode.left);
+        swapNodes(currentNode.right);
 
-    //     let temp = node.left;
-    //     node.left = node.right;
-    //     node.right = temp;
+    }
 
-    //     if (node.left) q.unshift(node.left);
-    //     if (node.right) q.unshift(node.right);
+    swapNodes(root)
 
-    // }
-
-    // return root;
-
-    // recursive DFS
-        let temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-
-        invertTree(root.left);
-        invertTree(root.right);
-
-        return root;
-
+    return root;
 };
