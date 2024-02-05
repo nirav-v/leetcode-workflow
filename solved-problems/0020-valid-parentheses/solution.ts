@@ -1,24 +1,26 @@
-function isValid(s: string): boolean {
-    const stack = [];
 
-    const brackets = {
-        "(": ")",
-        "{": "}",
-        "[": "]"
+// ([])[]{}
+function isValid(s: string): boolean {
+    
+    const openingBrackets = new Set(['[', '(', '{'])
+
+    const bracketsMap = {
+        ')': '(',
+        ']': '[',
+        '}': '{',
     }
 
-    const openingBrackets = new Set(Object.keys(brackets));
+   const stack = []
 
-
-    // push and pop from stack as we go
-    for (const char of s){
-        if (openingBrackets.has(char)){
-            stack.push(char);
+    for (const bracket of s){
+        if (openingBrackets.has(bracket)){
+            stack.push(bracket)
         } else {
-            const top = stack.pop();
-            if (brackets[top] !== char) return false;
+            const poppedValue = stack.pop();
+            if (poppedValue !== bracketsMap[bracket]) return false;
         }
     }
+
     return stack.length === 0;
 
 };
