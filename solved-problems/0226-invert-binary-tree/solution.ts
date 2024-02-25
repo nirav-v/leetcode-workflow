@@ -13,21 +13,20 @@
  */
 
 function invertTree(root: TreeNode | null): TreeNode | null {
+    
+    const stack = [root]
 
-    function swapNodes(currentNode: TreeNode) {
+    while (stack.length){
+        const node = stack.pop()
 
-        if (!currentNode) return
+        if (node === null) continue;
 
-        console.log(currentNode)
-        const temp = currentNode.left;
-        currentNode.left = currentNode.right;
-        currentNode.right = temp;
-        swapNodes(currentNode.left);
-        swapNodes(currentNode.right);
+        let temp = node.left;
+        node.left = node.right;
+        node.right = temp;
 
+        stack.push(node.left, node.right)
     }
-
-    swapNodes(root)
 
     return root;
 };
