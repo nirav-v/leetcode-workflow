@@ -13,20 +13,34 @@
  */
 
 function invertTree(root: TreeNode | null): TreeNode | null {
-    
-    const stack = [root]
 
-    while (stack.length){
-        const node = stack.pop()
+    if (!root) return root
 
-        if (node === null) continue;
+    // iterative BFS
+    // const q = [root];
 
-        let temp = node.left;
-        node.left = node.right;
-        node.right = temp;
+    // while (q.length){
+    //     const node = q.pop();
 
-        stack.push(node.left, node.right)
-    }
+    //     let temp = node.left;
+    //     node.left = node.right;
+    //     node.right = temp;
 
-    return root;
+    //     if (node.left) q.unshift(node.left);
+    //     if (node.right) q.unshift(node.right);
+
+    // }
+
+    // return root;
+
+    // recursive DFS
+        let temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
+
 };
