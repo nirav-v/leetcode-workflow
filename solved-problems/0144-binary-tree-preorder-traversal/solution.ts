@@ -13,22 +13,13 @@
  */
 
 function preorderTraversal(root: TreeNode | null): number[] {
-    if (!root) return [];
-    
-    const result = [root.val];
-    
-    function pushChildNodes(node) {
-        if (!node) return;
-        
-        if (node.left) result.push(node.left.val);
-        pushChildNodes(node.left)
-        
-        if (node.right) result.push(node.right.val)
-        pushChildNodes(node.right)
+    const result = []
+    function traverse(node){
+        if (!node) return
+        result.push(node.val);
+        traverse(node.left);
+        traverse(node.right);
     }
-    
-    pushChildNodes(root)
-    
-    return result;
-    
+    traverse(root)
+    return result
 };
