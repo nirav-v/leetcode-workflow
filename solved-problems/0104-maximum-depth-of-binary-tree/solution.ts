@@ -13,31 +13,20 @@
  */
 
 function maxDepth(root: TreeNode | null): number {
-    //  create q to store nodes at each level
-    // while the q has nodes, remove all the nodes, add any children they have to the q, and increment the depth
-    // once all the nodes have null children we are done
-    if (!root) return 0;
-    const q = [root];
-    let levels = 0;
-
-    while (q.length) {
-        const currentLength = q.length;
-
-        let i = 0;
-        // every time this loop completes it means we explored a full level and can inc depth
-        while (i < currentLength) {
-            const node = q.shift();
-
-            if (node.left) q.push(node.left);
-            if (node.right) q.push(node.right)
-
-            i++;
-        }
-
-
-        levels += 1
-
+    let answer = 0;
+    
+    function traverse(node, depth){
+      
+        if (!node) return
+        
+        if (!node.left || !node.right) answer = Math.max(answer, depth)
+        
+        
+        traverse(node.left, depth + 1);
+        traverse(node.right, depth + 1);
+        
     }
-
-    return levels;
+    
+    traverse(root, 1);
+    return answer
 };
