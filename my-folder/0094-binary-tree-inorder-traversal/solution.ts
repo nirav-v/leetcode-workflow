@@ -15,24 +15,18 @@
 function inorderTraversal(root: TreeNode | null): number[] {
 //     once node has no children, add it to the result and return
     
-    if (!root) return [];
-    
     const result = [];
     
-    function pushChildNodes(node) {
-            
-        if (!node) return;
+    function traverse(node) {
         
+        if (!node) return
         
-        pushChildNodes(node.left)
-        
-        result.push(node.val);
-
-        pushChildNodes(node.right)
-       
+        traverse(node.left);
+        result.push(node.val)
+        traverse(node.right);
     }
     
-    pushChildNodes(root)
+    traverse(root)
     
     return result;
     
