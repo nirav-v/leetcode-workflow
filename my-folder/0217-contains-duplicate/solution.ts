@@ -1,4 +1,5 @@
 function containsDuplicate(nums: number[]): boolean {
+    
     const numsSet = new Set();
 
     for (const num of nums){
@@ -7,5 +8,4 @@ function containsDuplicate(nums: number[]): boolean {
     }
 
     return false;
-
 };
