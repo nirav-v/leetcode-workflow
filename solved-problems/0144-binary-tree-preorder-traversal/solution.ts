@@ -13,13 +13,32 @@
  */
 
 function preorderTraversal(root: TreeNode | null): number[] {
-    const result = []
-    function traverse(node){
-        if (!node) return
+    if (!root) return [];
+    const result = [];
+
+    const stack = [root] // if doing preorder traversal, use stack to ensure all left nodes are added first
+
+    // function traverse(node){
+    //     if (!node) return;
+
+    //     result.push(node.val)
+    //     traverse(node.left)
+    //     traverse(node.right)
+    // }
+
+    // traverse(root);
+    // return result;
+
+    while (stack.length){
+        const node = stack.pop();
         result.push(node.val);
-        traverse(node.left);
-        traverse(node.right);
+
+        if (node.right) stack.push(node.right);
+        if (node.left) stack.push(node.left);
+
     }
-    traverse(root)
-    return result
+    
+
+    return result;
+
 };
