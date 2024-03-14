@@ -1,29 +1,23 @@
-function isAnagram(strA: string, strB: string): boolean {
-      if (strA.length !== strB.length) return false;
+function isAnagram(s: string, t: string): boolean {
 
-        // SLOW easy solution with built in methods (sort in alpha order and compare eqaulity)
-        // if (strA.split('').sort().join('') === strB.split('').sort().join('')) return true;
-        // else return false;
+    if (s.length !== t.length) return false;
 
+    const sMap = new Map();
+    const tMap = new Map();
 
-    function getCharCounts(str) {
-        const counts = {};
-        for (const char of str) {
-        if (counts[char]) {
-            counts[char]++;
-        } else {
-            counts[char] = 1;
-        }
-        }
-        return counts;
+    for (let i = 0; i < s.length; i++) {
+        const sCount = sMap.get(s[i])
+        if (sCount) sMap.set(s[i], sCount + 1)
+        else sMap.set(s[i], 1)
+
+        const tCount = tMap.get(t[i])
+        if (tCount) tMap.set(t[i], tCount + 1)
+        else tMap.set(t[i], 1)
     }
-    const strACounts = getCharCounts(strA);
-    const strBCounts = getCharCounts(strB);
 
-    for (const letter of Object.keys(strACounts)) {
-        if (strACounts[letter] !== strBCounts[letter]) {
-        return false;
-        }
+    for (const letter of sMap.keys()){
+        if (tMap.get(letter) !== sMap.get(letter)) return false;
     }
+    
     return true;
 };
