@@ -13,21 +13,19 @@
  */
 
 function inorderTraversal(root: TreeNode | null): number[] {
-//     once node has no children, add it to the result and return
-    
+    if (!root) return []
     const result = [];
-    
-    function traverse(node) {
-        
-        if (!node) return
-        
+
+    function traverse(node){
+        if (!node) return;
+
         traverse(node.left);
-        result.push(node.val)
-        traverse(node.right);
+        result.push(node.val);
+        traverse(node.right)
+
     }
-    
-    traverse(root)
-    
+
+    traverse(root);
     return result;
-    
+
 };
