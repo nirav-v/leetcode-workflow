@@ -13,24 +13,7 @@
  */
 
 function maxDepth(root: TreeNode | null): number {
-    
     if (!root) return 0;
-
-    let currentDepth = 1
-    let maxDepth = currentDepth;
-    
-    function traverse(node, depth){
-        
-        if (!node) return;
-        
-        if (!node.left && !node.right) maxDepth = Math.max(maxDepth, depth);
-        
-        traverse(node.left, depth + 1);
-        traverse(node.right, depth + 1);
-        
-    }
-    
-    traverse(root, currentDepth)
-    return maxDepth;
-    
+            
+    return Math.max(1 + maxDepth(root.left), 1 + maxDepth(root.right))   
 };
