@@ -1,30 +1,37 @@
-function checkPalindrome(s, i, j){
-        while (i < j){
-            if (s[i] !== s[j]) return false
-            i++;
-            j--;
+function validPalindrome(s: string): boolean {
+
+    let l = 0;
+    let r = s.length - 1;
+
+    while (l < r) {
+  
+        if (s[l] !== s[r]) {
+            // check if its a plaindrom without the left char or without the right char
+            if (isPalindrome(s, l + 1, r) || isPalindrome(s, l, r -1)) return true;
+            else return false
+
         }
 
-        return true
-}
-
-function validPalindrome(s: string): boolean {
-    
-    let i = 0;
-    let j = s.length - 1;
-
-    
-    while (i < j){
-        // if both end are eqaul assume its a palindrome and keep checking middle
-        // if both ends are not equal see if it would be a plaindrom if we removed one of the ends, if not then a single deletion would not make a difference
-        if (s[i] !== s[j]) {
-           return checkPalindrome(s, i + 1, j) || checkPalindrome(s, i, j - 1)
-        } 
-        
-        i++;
-        j--;
+        l++
+        r--
     }
 
     return true
-// "abca"
+
 };
+
+function isPalindrome(s: string, l: number, r: number): boolean {
+
+     while (l < r){
+   
+        if (s[l]!== s[r]) return false;
+
+        l++;
+        r--;
+    }
+
+    return true
+};
+
+// "deeee"
+// "abbac"
