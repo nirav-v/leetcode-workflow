@@ -1,19 +1,24 @@
-
 function maxProfit(prices: number[]): number {
-
-    let i = 0;
-    let buyingPrice = prices[0]
-    let maxProfit = 0;
-
-    for (let i = 1; i < prices.length; i++){
-        // dont bother calculating if our buy price is higher than the sell price
-        if (prices[i] < buyingPrice){
-            buyingPrice = prices[i];
-        } else {
-            maxProfit = Math.max(maxProfit, prices[i] - buyingPrice)
-        }
-    }
     
-    return maxProfit;
+    let max = 0
+    let l = 0
+    let r = 1
 
+ // [7,1,5,3,6,4]
+    while (r < prices.length){
+        if (prices[r] < prices[l]) {
+            l = r
+            r+=1
+            continue;
+        }
+
+        const currentProfit = prices[r] - prices[l]
+
+        max = Math.max(max, currentProfit)
+
+        r++
+    }
+
+    return max
 };
+
