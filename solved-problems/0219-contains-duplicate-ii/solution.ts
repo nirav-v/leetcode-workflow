@@ -1,20 +1,11 @@
 function containsNearbyDuplicate(nums: number[], k: number): boolean {
-    // [1,2,3,1]
 
-    let l = 0
+    const map = new Map()
 
-    let prevNums = new Set([nums[l]])
+    for (let i = 0; i < nums.length; i++) {
+        if (map.get(nums[i]) !== null && Math.abs(i - map.get(nums[i])) <= k) return true
 
-    for (let r = 1; r < nums.length; r++) {
-        if (Math.abs(r - l) > k) {
-            prevNums.delete(nums[l])
-            l++
-        }
-
-        if (prevNums.has(nums[r])) return true
-
-        prevNums.add(nums[r])
-
+        map.set(nums[i], i)
     }
 
     return false
@@ -22,4 +13,6 @@ function containsNearbyDuplicate(nums: number[], k: number): boolean {
 
 };
 
-// look for duplicates where the difference between their indeces is <= k
+// {1: 2, 0: 1}
+// [1,0,1,1]
+
