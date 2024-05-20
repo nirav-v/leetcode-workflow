@@ -2,19 +2,12 @@
  Do not return anything, modify nums in-place instead.
  */
 function moveZeroes(nums: number[]): void {
-    let i = 0;
-    let j = i;
-
-    while (j < nums.length){
-        if (nums[j]){
-            let temp = nums[i]
-            nums[i] = nums[j]
-            nums[j] = temp 
-            i++
-        }
-        j++
+    // [3,1,0,0,12]
+    let l = 0
+    for (let r in nums){
+        if (nums[r] !== 0){
+            [nums[l], nums[r]] = [nums[r], nums[l]]
+            l++
+        } 
     }
-
 };
-
-// [1,3,12,0,0]
