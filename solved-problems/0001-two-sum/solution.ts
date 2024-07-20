@@ -1,14 +1,13 @@
 function twoSum(nums: number[], target: number): number[] {
-    let pastNums = {}
+    let map = new Map()
     for (let i = 0; i < nums.length; i++){
         
-        const complement = target - nums[i];
-        if (pastNums[complement] !== undefined){
-            return [pastNums[complement.toString()], i]
-        } else {
-            pastNums[nums[i]] = i;
-        }
-
-
+        let desiredValue = target - nums[i];
+        if (map.has(desiredValue)){
+            return [i, map.get(desiredValue)]
+        } 
+        
+        map.set(nums[i], i)
+        
     }
 };
