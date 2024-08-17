@@ -4,32 +4,33 @@ type Subscription = {
 }
 
 class EventEmitter {
-    
-	subscribe(eventName: string, callback: Callback): Subscription {
-		
-        if (!this[eventName]) this[eventName] = []
-        this[eventName] = [...this[eventName], callback];
 
-		return {
-			unsubscribe: () => {
-				this[eventName].shift();
-                return undefined;
-			}
-        };
-	}
-
-	emit(eventName: string, args: any[] = []): any[] {
-		
-        if (!this[eventName]) return [];
-        
-        const result = []
-
-        for (const fn of this[eventName]){
-            result.push(fn(...args));
+    subscribe(eventName: string, callback: Callback): Subscription {
+        // add the callback as a method under the label of the event name
+        if (!this[eventName]) {
+            this[eventName] = [callback]
+        } else {
+            this[eventName].push(callback)
         }
 
-        return result;
-	}
+        return {
+            unsubscribe: () => {
+                // remove the specific callback that was added 
+                const indexToRemove = this[eventName].findIndex(item => item === callback)
+                if (indexToRemove < 0) return
+                this[eventName].splice(indexToRemove, 1)
+            }
+        };
+    }
+
+    emit(eventName: string, args: any[] = []): any[] {
+        if (!this[eventName]) return []
+        let result = []
+        for (const cb of this[eventName]){
+            result.push(cb(...args))
+        }
+        return result
+    }
 }
 
 /**
